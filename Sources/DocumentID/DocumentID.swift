@@ -10,10 +10,14 @@ import Foundation
 
 public protocol IDGeneratable: Identifiable where ID == String {
 
+    static func generateID() -> ID
+
     static func generateID(characters: String, length: Int) -> ID
 }
 
 extension IDGeneratable {
+
+    static func generateID() -> ID { AutoID.generate(characters: AutoID.availableCharacters, length: AutoID.length) }
 
     static func generateID(characters: String = AutoID.availableCharacters, length: Int = AutoID.length) -> ID { AutoID.generate(characters: characters, length: length) }
 }
