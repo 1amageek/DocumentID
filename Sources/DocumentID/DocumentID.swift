@@ -17,9 +17,9 @@ public protocol IDGeneratable: Identifiable where ID == String {
 
 extension IDGeneratable {
 
-    static func generateID() -> ID { AutoID.generate(characters: AutoID.availableCharacters, length: AutoID.length) }
+    public static func generateID() -> ID { AutoID.generate(characters: AutoID.availableCharacters, length: AutoID.length) }
 
-    static func generateID(characters: String = AutoID.availableCharacters, length: Int = AutoID.length) -> ID { AutoID.generate(characters: characters, length: length) }
+    public static func generateID(characters: String = AutoID.availableCharacters, length: Int = AutoID.length) -> ID { AutoID.generate(characters: characters, length: length) }
 }
 
 @propertyWrapper
