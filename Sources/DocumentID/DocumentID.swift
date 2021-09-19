@@ -40,3 +40,26 @@ public struct DocumentID<Value>: Hashable where Value: Hashable {
         return lhs.value == rhs.value
     }
 }
+
+public enum DocumentIDDecodingError: Error {
+    case decodingIsNotSupported(String)
+}
+
+public enum DocumentIDEncodingError: Error {
+    case encodingIsNotSupported(String)
+}
+
+extension DocumentID: Codable {
+
+    // MARK: - `Codable` implementation.
+
+    public init(from decoder: Decoder) throws {
+        throw DocumentIDDecodingError.decodingIsNotSupported("DocumentID values can only be decoded with Firestore.Decoder")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        throw DocumentIDEncodingError.encodingIsNotSupported(
+            "DocumentID values can only be encoded with Firestore.Encoder"
+        )
+    }
+}
