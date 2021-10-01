@@ -49,17 +49,21 @@ public enum DocumentIDEncodingError: Error {
     case encodingIsNotSupported(String)
 }
 
-extension DocumentID: Codable {
+extension DocumentID: Codable where Value == String {
 
     // MARK: - `Codable` implementation.
 
     public init(from decoder: Decoder) throws {
-        throw DocumentIDDecodingError.decodingIsNotSupported("DocumentID values can only be decoded with Firestore.Decoder")
+        let container = try decoder.singleValueContainer()
+        value = try container.decode(Value.self)
+//        throw DocumentIDDecodingError.decodingIsNotSupported("DocumentID values can only be decoded with Firestore.Decoder")
     }
 
     public func encode(to encoder: Encoder) throws {
-        throw DocumentIDEncodingError.encodingIsNotSupported(
-            "DocumentID values can only be encoded with Firestore.Encoder"
-        )
+        var container = encoder.singleValueContainer()
+        try container.encode(value)
+//        throw DocumentIDEncodingError.encodingIsNotSupported(
+//            "DocumentID values can only be encoded with Firestore.Encoder"
+//        )
     }
 }
