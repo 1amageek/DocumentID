@@ -54,7 +54,13 @@ extension DocumentID: Codable where Value == String {
     // MARK: - `Codable` implementation.
 
     public init(from decoder: Decoder) throws {
-        throw DocumentIDDecodingError.decodingIsNotSupported("DocumentID values can only be decoded with Firestore.Decoder")
+        do {
+            let container = try decoder.singleValueContainer()
+            let id = try container.decode(String.self)
+            self = DocumentID(wrappedValue: id)
+        } catch {
+            throw DocumentIDDecodingError.decodingIsNotSupported("DocumentID values can only be decoded with Firestore.Decoder")
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
