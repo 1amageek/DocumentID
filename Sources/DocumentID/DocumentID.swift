@@ -64,8 +64,11 @@ extension DocumentID: Codable where Value == String {
     }
 
     public func encode(to encoder: Encoder) throws {
-        throw DocumentIDEncodingError.encodingIsNotSupported(
-            "DocumentID values can only be encoded with Firestore.Encoder"
-        )
+        do {
+            var container = encoder.singleValueContainer()
+            try container.encode(self.wrappedValue)
+        } catch {
+            throw DocumentIDEncodingError.encodingIsNotSupported("DocumentID values can only be encoded with Firestore.Encoder")
+        }
     }
 }

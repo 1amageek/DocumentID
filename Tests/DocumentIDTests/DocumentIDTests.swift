@@ -18,4 +18,23 @@ final class DocumentIDTests: XCTestCase {
         }
 
     }
+
+    func testEncode() throws {
+
+        struct ModelA: Identifiable, Codable {
+            @DocumentID var id: String
+            var b: ModelB = ModelB(id: "B")
+        }
+
+        struct ModelB: Identifiable, Codable {
+            @DocumentID var id: String
+        }
+
+        let a: ModelA = ModelA(id: "A")
+        let data = try JSONEncoder().encode(a)
+        let json = try JSONDecoder().decode(ModelA.self, from: data)
+        XCTAssertEqual(json.id, "A")
+        XCTAssertEqual(json.b.id, "B")
+
+    }
 }
