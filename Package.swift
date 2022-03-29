@@ -11,8 +11,7 @@ let package = Package(
             name: "DocumentID",
             targets: ["DocumentID"]),
     ],
-    dependencies: [
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "DocumentID",
