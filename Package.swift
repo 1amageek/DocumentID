@@ -11,8 +11,8 @@ let package = Package(
             name: "DocumentID",
             targets: ["DocumentID"]),
         .library(
-            name: "Firestore",
-            targets: ["Firestore"]),
+            name: "FirestoreImitation",
+            targets: ["FirestoreImitation"]),
     ],
     dependencies: [],
     targets: [
@@ -20,7 +20,7 @@ let package = Package(
             name: "DocumentID",
             dependencies: []),
         .target(
-            name: "Firestore",
+            name: "FirestoreImitation",
             dependencies: ["DocumentID"]),
         .testTarget(
             name: "DocumentIDTests",
