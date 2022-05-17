@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public protocol IDGeneratable: Identifiable where ID == String {
 
     static func generateID() -> ID
