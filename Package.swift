@@ -10,12 +10,18 @@ let package = Package(
         .library(
             name: "DocumentID",
             targets: ["DocumentID"]),
+        .library(
+            name: "Firestore",
+            targets: ["Firestore"]),
     ],
     dependencies: [],
     targets: [
         .target(
             name: "DocumentID",
             dependencies: []),
+        .target(
+            name: "Firestore",
+            dependencies: ["DocumentID"]),
         .testTarget(
             name: "DocumentIDTests",
             dependencies: ["DocumentID"]),
