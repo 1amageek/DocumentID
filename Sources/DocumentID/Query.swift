@@ -18,7 +18,7 @@ public struct Query {
         self.predicates = []
     }
 
-    init(_ path: String, predicates: [QueryPredicate]) {
+    public init(_ path: String, predicates: [QueryPredicate]) {
         self.path = path
         self.predicates = predicates
     }

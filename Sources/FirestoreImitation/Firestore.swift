@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DocumentID
 
 public enum Source {
     case `default`

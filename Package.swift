@@ -27,7 +27,7 @@ let package = Package(
             dependencies: ["DocumentID"]),
         .target(
             name: "FunctionsImitation",
-            dependencies: []),
+            dependencies: ["DocumentID"]),
         .testTarget(
             name: "DocumentIDTests",
             dependencies: ["DocumentID"]),

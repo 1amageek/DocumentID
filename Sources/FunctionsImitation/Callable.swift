@@ -6,18 +6,25 @@
 //
 
 import Foundation
+import DocumentID
 
 public struct Callable<Response: Decodable>  {
     
     public var name: String
 
-    public var data: [String: Any]
+    public var data: Any?
 
     public var type: Response.Type
 
-    public init(_ name: String, data: [String: Any], type: Response.Type) {
+    public init(_ name: String, data: Any? = nil, type: Response.Type) {
         self.name = name
         self.data = data
+        self.type = type
+    }
+
+    public init(_ name: String, query: Query, type: Response.Type) {
+        self.name = name
+        self.data = query.encode()
         self.type = type
     }
 }
