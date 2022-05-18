@@ -13,6 +13,9 @@ let package = Package(
         .library(
             name: "FirestoreImitation",
             targets: ["FirestoreImitation"]),
+        .library(
+            name: "FunctionsImitation",
+            targets: ["FunctionsImitation"]),
     ],
     dependencies: [],
     targets: [
@@ -22,6 +25,9 @@ let package = Package(
         .target(
             name: "FirestoreImitation",
             dependencies: ["DocumentID"]),
+        .target(
+            name: "FunctionsImitation",
+            dependencies: []),
         .testTarget(
             name: "DocumentIDTests",
             dependencies: ["DocumentID"]),

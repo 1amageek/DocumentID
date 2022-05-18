@@ -25,11 +25,11 @@ public protocol Firestore {
 
 extension Firestore {
 
-    func get<T: Decodable>(_ query: Query, type: T.Type) async throws -> [T]? {
+    public func get<T: Decodable>(_ query: Query, type: T.Type) async throws -> [T]? {
         try await get(query, source: .default, type: type)
     }
 
-    func get<T: Decodable>(_ reference: DocumentReference, type: T.Type) async throws -> T? {
+    public func get<T: Decodable>(_ reference: DocumentReference, type: T.Type) async throws -> T? {
         try await get(reference, source: .default, type: type)
     }
 }

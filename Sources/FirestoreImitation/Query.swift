@@ -168,7 +168,7 @@ public struct Query {
 
 extension Query: Encodable {
 
-    public func encode() throws -> [String: Any] {
+    public func encode() -> [String: Any] {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.timeZone = TimeZone.current
