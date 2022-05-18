@@ -13,6 +13,11 @@ public struct Query {
 
     public var predicates: [QueryPredicate]
 
+    public init() {
+        self.path = ""
+        self.predicates = []
+    }
+
     public init(_ path: String) {
         self.path = path
         self.predicates = []
