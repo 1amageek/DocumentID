@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import DocumentID
+@_exported import DocumentID
 
 public struct Callable<Response: Decodable>  {
     
