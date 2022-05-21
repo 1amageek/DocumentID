@@ -41,6 +41,10 @@ extension Firestore {
     public func get<T: Decodable>(_ reference: DocumentReference, type: T.Type) async throws -> T? {
         try await get(reference, source: .default, type: type)
     }
+
+    public func update<T: Encodable & Identifiable>(data: T, reference: DocumentReference) async throws {
+        try await update(before: nil, after: data, reference: reference)
+    }
 }
 
 public protocol Queryable: AnyObject {
