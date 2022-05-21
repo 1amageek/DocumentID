@@ -16,6 +16,9 @@ let package = Package(
         .library(
             name: "FunctionsImitation",
             targets: ["FunctionsImitation"]),
+        .library(
+            name: "AnalyticsImitation",
+            targets: ["AnalyticsImitation"]),
     ],
     dependencies: [],
     targets: [
@@ -27,6 +30,9 @@ let package = Package(
             dependencies: ["DocumentID"]),
         .target(
             name: "FunctionsImitation",
+            dependencies: ["DocumentID"]),
+        .target(
+            name: "AnalyticsImitation",
             dependencies: ["DocumentID"]),
         .testTarget(
             name: "DocumentIDTests",
