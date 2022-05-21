@@ -28,21 +28,6 @@ public struct CollectionReference {
 
 extension CollectionReference {
 
-    public func updates<T: Codable>(type: T.Type) -> AsyncThrowingStream<[T], Error>? {
-        return nil
-    }
-
-    public func changes<T: Codable>(type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>? {
-        return nil
-    }
-
-    public func get<T: Codable>(type: T.Type) async throws -> [T]? {
-        return nil
-    }
-}
-
-extension CollectionReference {
-
     public func `where`(field: String, isEqualTo value: Any) -> Query {
         var predicates = self.predicates
         predicates.append(.isEqualTo(field, value))
