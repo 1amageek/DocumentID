@@ -24,6 +24,17 @@ public struct CollectionReference {
     public func document(_ id: String = AutoID.generate()) -> DocumentReference {
         DocumentReference("\(path)/\(id)")
     }
+
+    public var parent: DocumentReference? {
+        let pathComponents = URLComponents(string: path)!.url!.pathComponents.filter({ $0 != "/" })
+        if pathComponents.count <= 1 {
+            return nil
+        }
+        let path = pathComponents
+            .dropLast()
+            .joined(separator: "/")
+        return DocumentReference(path)
+    }
 }
 
 extension CollectionReference {
