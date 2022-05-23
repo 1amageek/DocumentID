@@ -37,6 +37,17 @@ public struct CollectionReference {
     }
 }
 
+extension CollectionReference: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(path)
+    }
+
+    public static func == (lhs: CollectionReference, rhs: CollectionReference) -> Bool {
+        lhs.path == rhs.path
+    }
+}
+
 extension CollectionReference {
 
     public func `where`(field: String, isEqualTo value: Any) -> Query {
