@@ -19,8 +19,8 @@ public protocol Firestore {
     func changes<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
-    func create<T: Encodable & Identifiable>(_ data: T, reference: DocumentReference) async throws
-    func update<T: Encodable & Identifiable>(before: T?, after: T, reference: DocumentReference) async throws
+    func create<T: Encodable>(_ data: T, reference: DocumentReference) async throws
+    func update<T: Encodable>(before: T?, after: T, reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
 }
 
