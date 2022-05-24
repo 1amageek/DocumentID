@@ -42,7 +42,7 @@ extension Firestore {
         try await get(reference, source: .default, type: type)
     }
 
-    public func update<T: Encodable & Identifiable>(data: T, reference: DocumentReference) async throws {
+    public func update<T: Encodable>(data: T, reference: DocumentReference) async throws {
         try await update(before: nil, after: data, reference: reference)
     }
 }
