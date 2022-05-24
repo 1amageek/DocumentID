@@ -20,7 +20,7 @@ public protocol Firestore {
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
     func create<T: Encodable>(_ data: T, reference: DocumentReference) async throws
-    func update<T: Encodable>(before: T?, after: T, reference: DocumentReference) async throws
+    func update<T: Encodable>(before: T?, after: T, merge: Bool, reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
 }
 
@@ -42,8 +42,8 @@ extension Firestore {
         try await get(reference, source: .default, type: type)
     }
 
-    public func update<T: Encodable>(data: T, reference: DocumentReference) async throws {
-        try await update(before: nil, after: data, reference: reference)
+    public func update<T: Encodable>(data: T, merge: Bool = true, reference: DocumentReference) async throws {
+        try await update(before: nil, after: data, merge: merge, reference: reference)
     }
 }
 
