@@ -22,6 +22,7 @@ public protocol Firestore {
     func create<T: Encodable>(_ data: T, reference: DocumentReference) async throws
     func update<T: Encodable>(before: T?, after: T, merge: Bool, reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
+    func batch() -> WriteBatch
 }
 
 extension Firestore {
