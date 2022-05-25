@@ -34,7 +34,7 @@ public struct WriteBatch {
 
 public protocol WriteBatchDelegate {
     func setData<T: Encodable>(_ data: T, forDocument: DocumentReference, merge: Bool) throws
-    func updateData<T: Encodable>(_ data: T, forDocument: DocumentReference)
+    func updateData<T: Encodable>(_ data: T, forDocument: DocumentReference) throws
     func deleteDocument(_ document: DocumentReference)
     func commit() async throws
 }
