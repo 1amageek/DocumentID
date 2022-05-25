@@ -11,6 +11,10 @@ public struct WriteBatch {
 
     public var delegate: WriteBatchDelegate?
 
+    public init(delegate: WriteBatchDelegate) {
+        self.delegate = delegate
+    }
+
     public func setData<T: Decodable>(_ data: T, forDocument: DocumentReference, merge: Bool = true) {
         self.delegate?.setData(data, forDocument: forDocument, merge: merge)
     }
