@@ -15,11 +15,11 @@ public struct WriteBatch {
         self.delegate = delegate
     }
 
-    public func setData<T: Decodable>(_ data: T, forDocument: DocumentReference, merge: Bool = true) {
+    public func setData<T: Encodable>(_ data: T, forDocument: DocumentReference, merge: Bool = true) throws {
         self.delegate?.setData(data, forDocument: forDocument, merge: merge)
     }
 
-    public func updateData<T: Decodable>(_ data: T, forDocument: DocumentReference) {
+    public func updateData<T: Encodable>(_ data: T, forDocument: DocumentReference) throws {
         self.delegate?.updateData(data, forDocument: forDocument)
     }
 
@@ -33,8 +33,8 @@ public struct WriteBatch {
 }
 
 public protocol WriteBatchDelegate {
-    func setData<T: Decodable>(_ data: T, forDocument: DocumentReference, merge: Bool)
-    func updateData<T: Decodable>(_ data: T, forDocument: DocumentReference)
+    func setData<T: Encodable>(_ data: T, forDocument: DocumentReference, merge: Bool)
+    func updateData<T: Encodable>(_ data: T, forDocument: DocumentReference)
     func deleteDocument(_ document: DocumentReference)
     func commit() async throws
 }
