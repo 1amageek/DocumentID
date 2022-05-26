@@ -23,7 +23,7 @@ public protocol Firestore {
     func update<T: Encodable>(before: T?, after: T, merge: Bool, reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
     func writeBatch() -> WriteBatch
-    func runTransaction(update: (Transaction, NSErrorPointer) -> Any?, completion: (Any?, Error) -> Void)
+    func runTransaction(update: (Transaction, NSErrorPointer) -> Any?, completion: (Any?, Error?) -> Void)
 }
 
 extension Firestore {
