@@ -19,8 +19,8 @@ public protocol Firestore {
     func changes<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
-    func create<T: Encodable>(_ data: T, reference: DocumentReference) async throws
-    func update<T: Encodable>(before: T?, after: T, merge: Bool, reference: DocumentReference) async throws
+    func set<T: Encodable>(_ data: T, merge: Bool, reference: DocumentReference) async throws
+    func update<T: Encodable>(_ data: T, reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
     func writeBatch() -> WriteBatch
     func runTransaction(update: @escaping (Transaction, NSErrorPointer) -> Any?, completion: @escaping (Any?, Error?) -> Void)
@@ -44,8 +44,12 @@ extension Firestore {
         try await get(reference, source: .default, type: type)
     }
 
-    public func update<T: Encodable>(data: T, merge: Bool = true, reference: DocumentReference) async throws {
-        try await update(before: nil, after: data, merge: merge, reference: reference)
+    public func set<T: Encodable>(_ data: T, merge: Bool = true, reference: DocumentReference) async throws {
+        try await set(data, merge: merge, reference: reference)
+    }
+
+    public func update<T: Encodable>(_ data: T, reference: DocumentReference) async throws {
+        try await update(data, reference: reference)
     }
 }
 
