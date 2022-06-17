@@ -15,6 +15,7 @@ public enum Source {
 }
 
 public protocol Firestore {
+    func updates<T: Decodable>(_ reference: DocumentReference, type: T.Type) -> AsyncThrowingStream<T, Error>?
     func updates<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<[T], Error>?
     func changes<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
