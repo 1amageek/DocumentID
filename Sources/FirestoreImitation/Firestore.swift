@@ -45,6 +45,13 @@ extension Firestore {
     }
 }
 
+extension Firestore {
+
+    func set<T: Encodable>(_ data: T, reference: DocumentReference) async throws {
+        try await set(data, merge: true, reference: reference)
+    }
+}
+
 public protocol Queryable: AnyObject {
 
     associatedtype DataQuery : Queryable
