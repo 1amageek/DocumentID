@@ -12,7 +12,7 @@ struct StorageKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    public var functions: Storage? {
+    public var storage: Storage? {
         get { self[StorageKey.self] }
         set { self[StorageKey.self] = newValue }
     }
