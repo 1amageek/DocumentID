@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol Storage {
-    func putData(ref: StorageReference, data: Data, metadata: StorageMetadata) async throws {
+    func putData(ref: StorageReference, data: Data, metadata: StorageMetadata) async throws
     func delete(ref: StorageReference) async throws
 }
