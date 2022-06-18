@@ -25,6 +25,12 @@ public struct StorageReference {
         self.name = name
     }
 
+    public init(_ fullPath: String) {
+        let pathComponents = URLComponents(string: fullPath)!.url!.pathComponents.filter({ $0 != "/" })
+        self.path = pathComponents.dropLast().joined(separator: "/")
+        self.name = pathComponents.last!
+    }
+
     public var root: StorageReference {
         StorageReference("/", name: name)
     }
