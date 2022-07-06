@@ -22,6 +22,12 @@ public struct Callable<Response: Decodable>  {
         self.type = type
     }
 
+    public init(_ name: String, path: String, type: Response.Type) {
+        self.name = name
+        self.data = ["path": path]
+        self.type = type
+    }
+
     public init(_ name: String, query: Query, type: Response.Type) {
         self.name = name
         self.data = query.encode()
