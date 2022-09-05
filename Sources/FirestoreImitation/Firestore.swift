@@ -22,9 +22,11 @@ public protocol Firestore {
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
     func set(_ data: [String: Any], merge: Bool, reference: DocumentReference) async throws
-    func update(_ data: [String: Any], reference: DocumentReference) async throws
     func set<T: Encodable>(_ data: T, merge: Bool, reference: DocumentReference) async throws
+    func set<T: Encodable>(_ data: T, extensionData: [String: Any], merge: Bool, reference: DocumentReference) async throws
+    func update(_ data: [String: Any], reference: DocumentReference) async throws
     func update<T: Encodable>(_ data: T, reference: DocumentReference) async throws
+    func update<T: Encodable>(_ data: T, extensionData: [String: Any], reference: DocumentReference) async throws
     func delete(reference: DocumentReference) async throws
     func writeBatch() -> WriteBatch
     func runTransaction(update: @escaping (Transaction, NSErrorPointer) -> Any?, completion: @escaping (Any?, Error?) -> Void)
