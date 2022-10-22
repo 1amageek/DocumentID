@@ -15,8 +15,8 @@ public enum Source {
 }
 
 public protocol Firestore {
-    func updates(_ reference: DocumentReference) -> AsyncThrowingStream<DocumentSnapshot?, Error>?
-    func updates<T: Decodable>(_ reference: DocumentReference, type: T.Type) -> AsyncThrowingStream<T?, Error>?
+    func updates(_ reference: DocumentReference, includeMetadataChanges: Bool) -> AsyncThrowingStream<DocumentSnapshot?, Error>?
+    func updates<T: Decodable>(_ reference: DocumentReference, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<T?, Error>?
     func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<[T], Error>?
     func changes<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
@@ -33,6 +33,14 @@ public protocol Firestore {
 }
 
 extension Firestore {
+    
+    public func updates(_ reference: DocumentReference) -> AsyncThrowingStream<DocumentSnapshot?, Error>? {
+        updates(reference, includeMetadataChanges: true)
+    }
+    
+    public func updates<T: Decodable>(_ reference: DocumentReference, type: T.Type) -> AsyncThrowingStream<T?, Error>? {
+        updates(reference, includeMetadataChanges: true, type: type)
+    }
 
     public func updates<T: Decodable>(_ reference: CollectionReference, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
         updates(Query(reference.path), includeMetadataChanges: true, type: type)
