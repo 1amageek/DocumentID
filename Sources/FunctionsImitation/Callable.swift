@@ -10,26 +10,49 @@ import Foundation
 
 public struct Callable<Response: Decodable>  {
     
-    public var name: String
+    public enum EndpointType {
+        case name(String)
+        case url(URL)
+    }
+    
+    public var endpoint: EndpointType
 
     public var data: Any?
 
     public var type: Response.Type
 
     public init(_ name: String, data: Any? = nil, type: Response.Type) {
-        self.name = name
+        self.endpoint = .name(name)
         self.data = data
         self.type = type
     }
 
     public init(_ name: String, path: String, type: Response.Type) {
-        self.name = name
+        self.endpoint = .name(name)
         self.data = ["path": path]
         self.type = type
     }
 
     public init(_ name: String, query: Query, type: Response.Type) {
-        self.name = name
+        self.endpoint = .name(name)
+        self.data = query.encode()
+        self.type = type
+    }
+    
+    public init(_ url: URL, data: Any? = nil, type: Response.Type) {
+        self.endpoint = .url(url)
+        self.data = data
+        self.type = type
+    }
+
+    public init(_ url: URL, path: String, type: Response.Type) {
+        self.endpoint = .url(url)
+        self.data = ["path": path]
+        self.type = type
+    }
+
+    public init(_ url: URL, query: Query, type: Response.Type) {
+        self.endpoint = .url(url)
         self.data = query.encode()
         self.type = type
     }
