@@ -36,36 +36,36 @@ public protocol Firestore {
 
 extension Firestore {
     
-    public func updates(_ reference: DocumentReference) -> AsyncThrowingStream<DocumentSnapshot?, Error>? {
-        updates(reference, includeMetadataChanges: true)
+    public func updates(_ reference: DocumentReference, includeMetadataChanges: Bool = true) -> AsyncThrowingStream<DocumentSnapshot?, Error>? {
+        updates(reference, includeMetadataChanges: includeMetadataChanges)
     }
     
-    public func updates<T: Decodable>(_ reference: DocumentReference, type: T.Type) -> AsyncThrowingStream<T?, Error>? {
-        updates(reference, includeMetadataChanges: true, type: type)
+    public func updates<T: Decodable>(_ reference: DocumentReference, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<T?, Error>? {
+        updates(reference, includeMetadataChanges: includeMetadataChanges, type: type)
     }
 
-    public func updates<T: Decodable>(_ reference: CollectionReference, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
-        updates(Query(reference.path), includeMetadataChanges: true, type: type)
+    public func updates<T: Decodable>(_ reference: CollectionReference, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
+        updates(Query(reference.path), includeMetadataChanges: includeMetadataChanges, type: type)
     }
     
-    public func updates<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
-        updates(query, includeMetadataChanges: true, type: type)
+    public func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
+        updates(query, includeMetadataChanges: includeMetadataChanges, type: type)
     }
 
-    public func changes<T: Decodable>(_ reference: CollectionReference, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>? {
-        changes(Query(reference.path), includeMetadataChanges: true, type: type)
+    public func changes<T: Decodable>(_ reference: CollectionReference, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>? {
+        changes(Query(reference.path), includeMetadataChanges: includeMetadataChanges, type: type)
     }
     
-    public func changes<T: Decodable>(_ query: Query, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>? {
-        changes(query, includeMetadataChanges: true, type: type)
+    public func changes<T: Decodable>(_ query: Query, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>? {
+        changes(query, includeMetadataChanges: includeMetadataChanges, type: type)
     }
 
-    public func get<T: Decodable>(_ query: Query, type: T.Type) async throws -> [T]? {
-        try await get(query, source: .default, type: type)
+    public func get<T: Decodable>(_ query: Query, source: Source = .default, type: T.Type) async throws -> [T]? {
+        try await get(query, source: source, type: type)
     }
 
-    public func get<T: Decodable>(_ reference: DocumentReference, type: T.Type) async throws -> T? {
-        try await get(reference, source: .default, type: type)
+    public func get<T: Decodable>(_ reference: DocumentReference, source: Source = .default, type: T.Type) async throws -> T? {
+        try await get(reference, source: source, type: type)
     }
 }
 
