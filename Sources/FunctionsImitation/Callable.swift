@@ -28,9 +28,9 @@ public struct Callable<Response: Decodable>  {
         self.type = type
     }
     
-    public init<Request: Encodable>(_ name: String, data: Request, type: Response.Type) throws {
+    public init<Request: Encodable>(_ name: String, request: Request, type: Response.Type) throws {
         self.endpoint = .name(name)
-        self.data = try FirebaseDataEncoder().encode(data)
+        self.data = try FirebaseDataEncoder().encode(request)
         self.type = type
     }
 
