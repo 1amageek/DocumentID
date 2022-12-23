@@ -8,6 +8,9 @@ let package = Package(
     platforms: [.iOS(.v14), .macOS(.v11), .watchOS(.v7)],
     products: [
         .library(
+            name: "Shared",
+            targets: ["Shared"]),
+        .library(
             name: "DocumentID",
             targets: ["DocumentID"]),
         .library(
@@ -29,11 +32,14 @@ let package = Package(
             name: "DocumentID",
             dependencies: []),
         .target(
+            name: "Shared",
+            dependencies: []),
+        .target(
             name: "FirestoreImitation",
-            dependencies: ["DocumentID"]),
+            dependencies: ["DocumentID", "Shared"]),
         .target(
             name: "FunctionsImitation",
-            dependencies: ["DocumentID"]),
+            dependencies: ["DocumentID", "Shared"]),
         .target(
             name: "StorageImitation",
             dependencies: ["DocumentID"]),

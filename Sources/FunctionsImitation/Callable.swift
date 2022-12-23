@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Shared
 @_exported import DocumentID
 
 public struct Callable<Response: Decodable>  {
@@ -24,6 +25,12 @@ public struct Callable<Response: Decodable>  {
     public init(_ name: String, data: Any? = nil, type: Response.Type) {
         self.endpoint = .name(name)
         self.data = data
+        self.type = type
+    }
+    
+    public init<Request: Decodable>(_ name: String, data: Request, type: Response.Type) throws {
+        self.endpoint = .name(name)
+        self.data = try FirebaseDataDecoder().decode(Request.self, from: data)
         self.type = type
     }
 
