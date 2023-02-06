@@ -27,8 +27,8 @@ public struct Transaction {
         self.delegate?.deleteDocument(document)
     }
 
-    public func getDocument<T: Decodable>(_ document: DocumentReference, type: T.Type) async throws -> T? {
-        try await self.delegate?.getDocument(document, type: type)
+    public func getDocument<T: Decodable>(_ document: DocumentReference, type: T.Type) throws -> T? {
+        try self.delegate?.getDocument(document, type: type)
     }
 }
 
@@ -36,5 +36,5 @@ public protocol TransactionDelegate {
     func setData<T: Encodable>(_ data: T, for document: DocumentReference, merge: Bool) throws
     func updateData<T: Encodable>(_ data: T, for document: DocumentReference) throws
     func deleteDocument(_ document: DocumentReference)
-    func getDocument<T: Decodable>(_ document: DocumentReference, type: T.Type) async throws -> T?
+    func getDocument<T: Decodable>(_ document: DocumentReference, type: T.Type) throws -> T?
 }
