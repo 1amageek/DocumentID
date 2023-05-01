@@ -11,5 +11,5 @@ public protocol Functions {
 
     func call<T: Decodable>(_ callable: Callable<T>) async throws -> T?
 
-    func request<T: Decodable>(url: URL) async throws -> T?
+    func request<T: Decodable>(url: URL, type: T.Type) async throws -> T?
 }
