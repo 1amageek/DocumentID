@@ -14,7 +14,7 @@ public protocol Functions {
     func request<T: Decodable>(url: URL, type: T.Type, decoder: JSONDecoder) async throws -> T?
 }
 
-extension Functions {
+extension JSONDecoder {
 
     public static func iso8601() -> JSONDecoder {
         let decoder = JSONDecoder()
