@@ -17,7 +17,7 @@ public enum Source {
 public protocol Firestore {
     func updates(_ reference: DocumentReference, includeMetadataChanges: Bool) -> AsyncThrowingStream<DocumentSnapshot?, Error>?
     func updates<T: Decodable>(_ reference: DocumentReference, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<T?, Error>?
-    func updates<T: Decodable>(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>?
+    func updates(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>?
     func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<[T], Error>?
     func changes<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     
@@ -49,7 +49,7 @@ extension Firestore {
         updates(Query(reference.path), includeMetadataChanges: includeMetadataChanges, type: type)
     }
 
-    public func updates<T: Decodable>(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>? {
+    public func updates(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>? {
         updates(query)
     }
     
