@@ -17,13 +17,13 @@ public enum Source {
 public protocol Firestore {
     func updates(_ reference: DocumentReference, includeMetadataChanges: Bool) -> AsyncThrowingStream<DocumentSnapshot?, Error>?
     func updates<T: Decodable>(_ reference: DocumentReference, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<T?, Error>?
-    func updates(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>?
     func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<[T], Error>?
     func changes<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<(added: [T], modified: [T], removed: [T]), Error>?
     
     func get(_ reference: DocumentReference, source: Source) async throws -> DocumentSnapshot?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
+    func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot
     func set(_ data: [String: Any], merge: Bool, reference: DocumentReference) async throws
     func set<T: Encodable>(_ data: T, merge: Bool, reference: DocumentReference) async throws
     func set<T: Encodable>(_ data: T, extensionData: [String: Any], merge: Bool, reference: DocumentReference) async throws
@@ -48,10 +48,6 @@ extension Firestore {
     public func updates<T: Decodable>(_ reference: CollectionReference, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
         updates(Query(reference.path), includeMetadataChanges: includeMetadataChanges, type: type)
     }
-
-    public func updates(_ query: AggregateQuery) -> AsyncThrowingStream<AggregateQuerySnapshot?, Error>? {
-        updates(query)
-    }
     
     public func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool = true, type: T.Type) -> AsyncThrowingStream<[T], Error>? {
         updates(query, includeMetadataChanges: includeMetadataChanges, type: type)
@@ -71,6 +67,10 @@ extension Firestore {
 
     public func get<T: Decodable>(_ reference: DocumentReference, source: Source = .default, type: T.Type) async throws -> T? {
         try await get(reference, source: source, type: type)
+    }
+
+    public func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot {
+        try await get(aggregateQuery)
     }
 }
 
