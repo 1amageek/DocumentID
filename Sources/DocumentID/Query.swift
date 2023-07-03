@@ -28,6 +28,8 @@ public struct Query {
         self.predicates = predicates
     }
 
+    public var count: AggregateQuery { AggregateQuery(self) }
+
     // Field
 
     public func `where`(field: String, isEqualTo value: Any) -> Self {
