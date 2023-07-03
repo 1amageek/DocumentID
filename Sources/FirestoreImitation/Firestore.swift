@@ -23,7 +23,7 @@ public protocol Firestore {
     func get(_ reference: DocumentReference, source: Source) async throws -> DocumentSnapshot?
     func get<T: Decodable>(_ query: Query, source: Source, type: T.Type) async throws -> [T]?
     func get<T: Decodable>(_ reference: DocumentReference, source: Source, type: T.Type) async throws -> T?
-    func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot
+    func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot?
     func set(_ data: [String: Any], merge: Bool, reference: DocumentReference) async throws
     func set<T: Encodable>(_ data: T, merge: Bool, reference: DocumentReference) async throws
     func set<T: Encodable>(_ data: T, extensionData: [String: Any], merge: Bool, reference: DocumentReference) async throws
@@ -69,7 +69,7 @@ extension Firestore {
         try await get(reference, source: source, type: type)
     }
 
-    public func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot {
+    public func get(_ aggregateQuery: AggregateQuery) async throws -> AggregateQuerySnapshot? {
         try await get(aggregateQuery)
     }
 }
