@@ -35,6 +35,8 @@ public struct CollectionReference {
             .joined(separator: "/")
         return DocumentReference(path)
     }
+
+    public var count: AggregateQuery { Query(path).count }
 }
 
 extension CollectionReference: Hashable {
