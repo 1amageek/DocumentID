@@ -27,7 +27,7 @@ extension JSONDecoder {
         return decoder
     }
 
-    public static func extendedDateTimeWithMillisFormat() -> JSONDecoder {
+    public static func extendedDateTimeWithMillis() -> JSONDecoder {
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
