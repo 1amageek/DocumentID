@@ -56,7 +56,9 @@ public struct Callable<Response: Decodable>  {
     
     public init<Request: Encodable>(_ url: URL, request: Request, type: Response.Type) throws {
         self.endpoint = .url(url)
-        self.data = try FirebaseDataEncoder().encode(request)
+        let encoder = FirebaseDataEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.data = try encoder.encode(request)
         self.type = type
     }
 
