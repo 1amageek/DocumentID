@@ -30,7 +30,9 @@ public struct Callable<Response: Decodable>  {
     
     public init<Request: Encodable>(_ name: String, request: Request, type: Response.Type) throws {
         self.endpoint = .name(name)
-        self.data = try FirebaseDataEncoder().encode(request)
+        let encoder = FirebaseDataEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.data = try encoder.encode(request)
         self.type = type
     }
 
