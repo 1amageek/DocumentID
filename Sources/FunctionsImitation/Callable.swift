@@ -31,7 +31,7 @@ public struct Callable<Response: Decodable>  {
     public init<Request: Encodable>(_ name: String, request: Request, type: Response.Type) throws {
         self.endpoint = .name(name)
         let encoder = FirebaseDataEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .formatted(.extendedDateTimeWithMillis())
         self.data = try encoder.encode(request)
         self.type = type
     }
@@ -57,7 +57,7 @@ public struct Callable<Response: Decodable>  {
     public init<Request: Encodable>(_ url: URL, request: Request, type: Response.Type) throws {
         self.endpoint = .url(url)
         let encoder = FirebaseDataEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .formatted(.extendedDateTimeWithMillis())
         self.data = try encoder.encode(request)
         self.type = type
     }
