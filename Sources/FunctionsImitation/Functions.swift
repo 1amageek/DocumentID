@@ -37,7 +37,7 @@ extension DateFormatter {
 
 extension JSONDecoder {
 
-    public static func custom(handler: (inout JSONDecoder) -> Void) -> JSONDecoder {
+    public static func custom(_ handler: (inout JSONDecoder) -> Void) -> JSONDecoder {
         var decoder = JSONDecoder()
         handler(&decoder)
         return decoder
