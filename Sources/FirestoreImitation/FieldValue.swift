@@ -22,7 +22,7 @@ extension FieldValue: Encodable {
 }
 
 public class FieldValueEncoder {
-    public static let shared: FieldValueEncoder = FieldValueEncoder()
+    nonisolated(unsafe) public static let shared: FieldValueEncoder = FieldValueEncoder()
     public weak var delegate: FieldValueEncodable?
     public func setDelegate(_ delegate: FieldValueEncodable?) {
         self.delegate = delegate

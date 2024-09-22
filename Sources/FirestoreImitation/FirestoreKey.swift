@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FirestoreKey: EnvironmentKey {
-    static var defaultValue: Firestore?
+    nonisolated(unsafe) static var defaultValue: Firestore?
 }
 
 extension EnvironmentValues {
