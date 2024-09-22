@@ -1,6 +1,6 @@
 //
 //  Callable.swift
-//  
+//
 //
 //  Created by nori on 2022/05/18.
 //
@@ -9,42 +9,68 @@ import Foundation
 import Shared
 @_exported import DocumentID
 
-@propertyWrapper
-public struct ExplicitNull<Value>: Sendable where Value: Sendable {
-    private var value: Value?
+public struct Callable<Response: Decodable> : @unchecked Sendable {
+    
+    public enum EndpointType: Sendable {
+        case name(String)
+        case url(URL)
+    }
+    
+    public var endpoint: EndpointType
 
-    public init(wrappedValue value: Value?) {
-        self.value = value
+    public var data: Any?
+
+    public var type: Response.Type
+
+    public init(_ name: String, data: Any? = nil, type: Response.Type) {
+        self.endpoint = .name(name)
+        self.data = data
+        self.type = type
+    }
+    
+    public init<Request: Encodable>(_ name: String, request: Request, type: Response.Type) throws {
+        self.endpoint = .name(name)
+        let encoder = FirebaseDataEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.data = try encoder.encode(request)
+        self.type = type
     }
 
-    public var wrappedValue: Value? {
-        get { value }
-        set { value = newValue }
+    public init(_ name: String, path: String, type: Response.Type) {
+        self.endpoint = .name(name)
+        self.data = ["path": path]
+        self.type = type
     }
-}
 
-extension ExplicitNull: Equatable where Value: Equatable {}
-
-extension ExplicitNull: Hashable where Value: Hashable {}
-
-extension ExplicitNull: Encodable where Value: Encodable & Sendable {
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        if let value = value {
-            try container.encode(value)
-        } else {
-            try container.encodeNil()
-        }
+    public init(_ name: String, query: Query, type: Response.Type) {
+        self.endpoint = .name(name)
+        self.data = query.encode()
+        self.type = type
     }
-}
+    
+    public init(_ url: URL, data: Any? = nil, type: Response.Type) {
+        self.endpoint = .url(url)
+        self.data = data
+        self.type = type
+    }
+    
+    public init<Request: Encodable>(_ url: URL, request: Request, type: Response.Type) throws {
+        self.endpoint = .url(url)
+        let encoder = FirebaseDataEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        self.data = try encoder.encode(request)
+        self.type = type
+    }
 
-extension ExplicitNull: Decodable where Value: Decodable & Sendable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if container.decodeNil() {
-            value = nil
-        } else {
-            value = try container.decode(Value.self)
-        }
+    public init(_ url: URL, path: String, type: Response.Type) {
+        self.endpoint = .url(url)
+        self.data = ["path": path]
+        self.type = type
+    }
+
+    public init(_ url: URL, query: Query, type: Response.Type) {
+        self.endpoint = .url(url)
+        self.data = query.encode()
+        self.type = type
     }
 }
