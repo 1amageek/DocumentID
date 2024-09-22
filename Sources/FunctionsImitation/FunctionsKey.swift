@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FunctionsKey: EnvironmentKey {
-    static var defaultValue: Functions?
+    nonisolated(unsafe) static var defaultValue: Functions?
 }
 
 extension EnvironmentValues {

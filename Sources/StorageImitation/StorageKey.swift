@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StorageKey: EnvironmentKey {
-    static var defaultValue: Storage?
+    nonisolated(unsafe) static var defaultValue: Storage?
 }
 
 extension EnvironmentValues {

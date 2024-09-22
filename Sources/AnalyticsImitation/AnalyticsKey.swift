@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnalyticsKey: EnvironmentKey {
-    static var defaultValue: Analytics.Type?
+    nonisolated(unsafe) static var defaultValue: Analytics.Type?
 }
 
 extension EnvironmentValues {

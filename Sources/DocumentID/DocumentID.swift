@@ -22,9 +22,9 @@ extension IDGeneratable {
 }
 
 @propertyWrapper
-public struct DocumentID<Value>: Hashable where Value: Hashable {
+public struct DocumentID<Value>: Hashable, Sendable where Value: Hashable & Sendable {
 
-    var value: Value
+    private var value: Value
 
     public init(wrappedValue value: Value) {
         self.value = value
