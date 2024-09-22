@@ -14,8 +14,8 @@ import Foundation
 /// This is useful for ensuring a field is present in a Firestore document,
 /// even when there is no associated value.
 @propertyWrapper
-public struct ExplicitNull<Value> {
-    var value: Value?
+public struct ExplicitNull<Value>: Sendable where Value: Sendable {
+    private var value: Value?
 
     public init(wrappedValue value: Value?) {
         self.value = value
