@@ -9,9 +9,9 @@ import Foundation
 
 public protocol Functions: Sendable {
 
-    func call<T: Decodable>(_ callable: Callable<T>, decoder: JSONDecoder) async throws -> T?
+    func call<T: Decodable & Sendable>(_ callable: Callable<T>, decoder: JSONDecoder) async throws -> T?
 
-    func request<T: Decodable>(url: URL, type: T.Type, decoder: JSONDecoder) async throws -> T?
+    func request<T: Decodable & Sendable>(url: URL, type: T.Type, decoder: JSONDecoder) async throws -> T?
 }
 
 extension DateFormatter {

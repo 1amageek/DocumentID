@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StorageMetadata {
+public struct StorageMetadata: Sendable {
 
     public var cacheControl: String?
     public var contentDisposition: String?

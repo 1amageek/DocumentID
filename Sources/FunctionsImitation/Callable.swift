@@ -9,7 +9,7 @@ import Foundation
 import Shared
 @_exported import DocumentID
 
-public struct Callable<Response: Decodable> : @unchecked Sendable {
+public struct Callable<Response: Decodable & Sendable> : @unchecked Sendable {
     
     public enum EndpointType: Sendable {
         case name(String)
@@ -28,7 +28,7 @@ public struct Callable<Response: Decodable> : @unchecked Sendable {
         self.type = type
     }
     
-    public init<Request: Encodable>(_ name: String, request: Request, type: Response.Type) throws {
+    public init<Request: Encodable & Sendable>(_ name: String, request: Request, type: Response.Type) throws {
         self.endpoint = .name(name)
         let encoder = FirebaseDataEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -54,7 +54,7 @@ public struct Callable<Response: Decodable> : @unchecked Sendable {
         self.type = type
     }
     
-    public init<Request: Encodable>(_ url: URL, request: Request, type: Response.Type) throws {
+    public init<Request: Encodable & Sendable>(_ url: URL, request: Request, type: Response.Type) throws {
         self.endpoint = .url(url)
         let encoder = FirebaseDataEncoder()
         encoder.dateEncodingStrategy = .iso8601

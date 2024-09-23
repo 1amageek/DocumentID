@@ -8,13 +8,13 @@
 import Foundation
 @_exported import DocumentID
 
-public enum Source {
+public enum Source: Sendable {
     case `default`
     case server
     case cache
 }
 
-public protocol Firestore {
+public protocol Firestore: Sendable {
     func updates(_ reference: DocumentReference, includeMetadataChanges: Bool) -> AsyncThrowingStream<DocumentSnapshot?, Error>?
     func updates<T: Decodable>(_ reference: DocumentReference, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<T?, Error>?
     func updates<T: Decodable>(_ query: Query, includeMetadataChanges: Bool, type: T.Type) -> AsyncThrowingStream<[T], Error>?
