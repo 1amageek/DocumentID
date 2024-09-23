@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DocumentReference: Hashable {
+public struct DocumentReference: Hashable, Sendable {
 
     public var id: String { URLComponents(string: path)!.url!.pathComponents.last! }
 

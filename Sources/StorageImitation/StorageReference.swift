@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StorageReference {
+public struct StorageReference: Sendable {
 
     public var path: String
 

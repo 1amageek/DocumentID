@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Query {
+public struct Query: Sendable {
 
     public var path: String
 
@@ -189,7 +189,7 @@ extension Query: Encodable {
     }
 }
 
-public enum QueryPredicate {
+public enum QueryPredicate: @unchecked Sendable {
 
     // Field
     case isEqualTo(_ field: String, _ value: Any)

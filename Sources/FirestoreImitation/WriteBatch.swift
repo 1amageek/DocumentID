@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct WriteBatch {
+public struct WriteBatch: @unchecked Sendable {
 
     public var delegate: WriteBatchDelegate?
 

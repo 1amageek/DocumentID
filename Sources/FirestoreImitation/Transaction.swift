@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Transaction {
+public struct Transaction: @unchecked Sendable {
 
     public var delegate: TransactionDelegate?
 

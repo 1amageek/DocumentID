@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum FieldValue {
+public enum FieldValue: @unchecked Sendable {
     case delete
     case serverTimestamp
     case arrayUnion([Any])

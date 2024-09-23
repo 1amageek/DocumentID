@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SnapshotMetadata {
+public struct SnapshotMetadata: Sendable {
     
     public private(set) var hasPendingWrites: Bool
     public private(set) var isFromCache: Bool
@@ -18,13 +18,13 @@ public struct SnapshotMetadata {
     }
 }
 
-public enum ServerTimestampBehavior: Int {
+public enum ServerTimestampBehavior: Int, Sendable {
     case none
     case estimate
     case previous
 }
 
-public struct DocumentSnapshot {
+public struct DocumentSnapshot: @unchecked Sendable {
     public var exists: Bool { data != nil }
     public private(set) var reference: DocumentReference
     public var documentID: String { reference.id }

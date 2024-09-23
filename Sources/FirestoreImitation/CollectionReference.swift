@@ -8,7 +8,7 @@
 import Foundation
 import DocumentID
 
-public struct CollectionReference {
+public struct CollectionReference: Sendable {
 
     public var collectionID: String { URLComponents(string: path)!.url!.pathComponents.last! }
 
