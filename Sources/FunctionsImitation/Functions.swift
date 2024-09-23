@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol Functions {
+public protocol Functions: Sendable {
 
     func call<T: Decodable>(_ callable: Callable<T>, decoder: JSONDecoder) async throws -> T?
 
