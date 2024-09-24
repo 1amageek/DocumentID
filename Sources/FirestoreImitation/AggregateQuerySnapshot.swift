@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AggregateQuerySnapshot {
+public struct AggregateQuerySnapshot: Sendable {
 
     public var query: AggregateQuery
 
